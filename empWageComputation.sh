@@ -1,7 +1,16 @@
 #! /bin/bash -x
 
-attendance=$((RANDOM%3))
-case $attendance in
+wage_per_hr=20
+max_hrs=100
+max_days=20
+total_working_hrs=0
+total_working_days=0
+
+while [[ $total_working_hrs -lt $max_hrs && total_working_days -lt max_days ]]
+do
+   ((total_working_days++))
+   emp_attendance=$((RANDOM%3))
+   case $emp_attendance in
      0)
        echo "Employee is Absent"
        no_of_hrs_per_day=0
@@ -14,13 +23,9 @@ case $attendance in
        echo "Employee is part time present"
        no_of_hrs_per_day=4
        ;;
-esac
+   esac
 
-wage_per_hour=20
-wage_per_day=$((wage_per_hour*no_of_hrs_per_day))
-no_of_days_per_month=20
-wage_per_month=$((wage_per_day*no_of_days_per_month))
-echo " The monthly wage of Employee is $wage_per_month"
-
-
-
+       ((total_working_hrs+=no_of_hrs_per_day))
+done
+total_salary=$((total_working_hrs*wage_per_hr))
+echo " Total salary is $total_salary"
